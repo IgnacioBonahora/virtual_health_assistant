@@ -106,6 +106,21 @@ def mostrar_historial():
     else:
         hablar("No hay recordatorios en el historial.")
 
+# Lista de notas
+notas = []
+
+def agregar_nota(nota):
+    notas.append(nota)
+    hablar("Nota agregada.")
+
+def mostrar_notas():
+    if notas:
+        hablar("Estas son tus notas:")
+        for nota in notas:
+            hablar(nota)
+    else:
+        hablar("No hay notas guardadas.")
+
 # Función para verificar si una cadena es numérica o si es un número en texto
 def es_numero(texto):
     return texto.isdigit() or texto in numeros_texto_a_numero
@@ -202,6 +217,15 @@ def manejar_comandos(ventana):
             elif "historial" in pedido:
                 mostrar_historial()
 
+            elif "agregar nota" in pedido:
+                hablar("¿Qué nota deseas agregar?")
+                nueva_nota = transformar_audio_texto()
+                if nueva_nota:
+                    agregar_nota(nueva_nota)
+
+            elif "mostrar notas" in pedido:
+                mostrar_notas()
+
             elif "desactivar asistente" in pedido or "pausar asistente" in pedido:
                 hablar("El asistente está desactivado.")
                 asistente_activo = False
@@ -239,8 +263,10 @@ def iniciar_gui():
     text_area.insert(tk.INSERT, "3. establecer recordatorios de salud\n")
     text_area.insert(tk.INSERT, "4. ejercicio\n")
     text_area.insert(tk.INSERT, "5. historial\n")
-    text_area.insert(tk.INSERT, "6. desactivar (desactivar asistente)\n")
-    text_area.insert(tk.INSERT, "7. adiós / detener (cerrar la aplicación)\n")
+    text_area.insert(tk.INSERT, "6. agregar nota\n")
+    text_area.insert(tk.INSERT, "7. mostrar notas\n")
+    text_area.insert(tk.INSERT, "8. desactivar (desactivar asistente)\n")
+    text_area.insert(tk.INSERT, "9. adiós / detener (cerrar la aplicación)\n")
 
     # Botón para iniciar el asistente
     boton_iniciar = tk.Button(
@@ -256,6 +282,7 @@ def iniciar_gui():
 
 # Ejecutar la interfaz gráfica
 iniciar_gui()
+
 
 
 
